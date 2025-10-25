@@ -33,12 +33,14 @@ NameSorter
 │─ Utilities
 │      └─ IFileProvider.cs    # Interface for file operations
 │      └─ FileProvider.cs     # Implementation for reading/writing files│
-│─ Program.cs              # Entry point; wires dependencies
+|- NameSorterRunner.cs        # a runner reponsible to read and write files based on service implementation
+│─ Program.cs                 # Entry point; wires dependencies
 │
 NameSorterTests
 │
 │─ PersonTests.cs           # Test person│
 │─ NameSortingServiceTests.cs # Test Sort logic by last and given names
+|- NameSorterRunner.cs       # Test runner functionality
 │─ FileProviderTests.cs     # Test Implementation for reading/writing files
 ```
 
