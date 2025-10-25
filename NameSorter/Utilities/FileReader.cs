@@ -18,7 +18,10 @@ namespace NameSorter.Utilities
 
         public void WriteAllLines(string path, IEnumerable<string> lines)
         {
-            throw new NotImplementedException();
+            if (!File.Exists(path))
+                throw new FileNotFoundException($"File not found: {path}");
+
+            File.WriteAllLines(path, lines);
         }
     }
 }
