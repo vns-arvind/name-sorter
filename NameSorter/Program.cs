@@ -3,20 +3,22 @@ using NameSorter;
 using NameSorter.Services;
 using NameSorter.Utilities;
 
-if (args.Length < 2)
+// Require only one argument: input file path
+if (args.Length < 1)
 {
-    Console.WriteLine(@"Please provide input (unsorted name) and output path. e.g. c:\test\input.txt, c:\test\output.txt");
+    Console.WriteLine(@"Please provide input file path. Example: c:\test\unsorted-names.txt");
     return;
 }
 
 var inputFilePath = args[0];
-var outputFilePath = args[1];
+// Always write to sorted-names-list.txt in the working directory
+var outputFilePath = Path.Combine(Environment.CurrentDirectory, "sorted-names-list.txt");
 
 // Setup DI
 var services = new ServiceCollection()
     .AddSingleton<IFileProvider, FileProvider>()
     .AddSingleton<INameSortingService, NameSortingService>()
-    .AddSingleton<NameSorterRunner>() 
+    .AddSingleton<NameSorterRunner>()
     .BuildServiceProvider();
 
 // Run the program

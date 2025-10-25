@@ -90,11 +90,11 @@ NameSorterTests
 ### 4.1 Running from Command Line
 
 ```bash
-dotnet run --project NameSorter '<<input file path>>', '<<output file path>>'
+dotnet run --project NameSorter '<<input file path>>'
 ```
 
 - Output displayed in console.
-- Sorted names written to `<<output file path>>` in working directory.
+- Sorted names written to `sorted-names-list.txt` in working directory.
 
 ### 4.2 Example
 
