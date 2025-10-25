@@ -1,5 +1,5 @@
-﻿
-using NameSorter.Models;
+﻿using Microsoft.Extensions.DependencyInjection;
+using NameSorter;
 using NameSorter.Services;
 using NameSorter.Utilities;
 
@@ -12,21 +12,18 @@ if (args.Length < 2)
 var inputFilePath = args[0];
 var outputFilePath = args[1];
 
+// Setup DI
+var services = new ServiceCollection()
+    .AddSingleton<IFileProvider, FileProvider>()
+    .AddSingleton<INameSortingService, NameSortingService>()
+    .AddSingleton<NameSorterRunner>() 
+    .BuildServiceProvider();
+
+// Run the program
 try
 {
-    var fileProvider = new FileProvider();
-
-    var names = fileProvider.ReadAllLines(inputFilePath)
-                          .Select(line => new Person(line));
-
-    var sorter = new NameSortingService();
-    var sortedNames = sorter.SortNames(names);
-
-    foreach (var person in sortedNames)
-        Console.WriteLine(person);
-
-    fileProvider.WriteAllLines(outputFilePath, sortedNames.Select(p => p.ToString()));
-    Console.WriteLine("Sorted names written to output file");
+    var runner = services.GetRequiredService<NameSorterRunner>();
+    runner.Run(inputFilePath, outputFilePath);
 }
 catch (Exception ex)
 {

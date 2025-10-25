@@ -1,0 +1,46 @@
+trigger:
+  - feature/name-sorter-implementation
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+  # Restore NuGet packages
+  - task: NuGetToolInstaller@1
+    displayName: 'Use latest NuGet'
+
+  - task: NuGetCommand@2
+    displayName: 'Restore NuGet packages'
+    inputs:
+      restoreSolution: '**/*.sln'
+
+  # Build solution
+  - task: VSBuild@1
+    displayName: 'Build solution'
+    inputs:
+      solution: '**/*.sln'
+      configuration: '$(buildConfiguration)'
+
+  # Run unit tests
+  - task: VSTest@2
+    displayName: 'Run unit tests'
+    inputs:
+      testSelector: 'testAssemblies'
+      testAssemblyVer2: |
+        **\*test*.dll
+        !**\*TestAdapter.dll
+        !**\obj\**
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+      configuration: '$(buildConfiguration)'
+      diagnosticsEnabled: true
+
+  # (Optional) Publish build artifacts
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish build artifacts'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'

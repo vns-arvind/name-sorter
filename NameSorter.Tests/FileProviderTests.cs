@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NameSorter.Tests
 {
-    public class FileReaderTests
+    public class FileProviderTests
     {
         [Test]
         public void FileReader_ReadContent()
