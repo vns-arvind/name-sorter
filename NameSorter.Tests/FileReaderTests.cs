@@ -15,11 +15,11 @@ namespace NameSorter.Tests
         public void FileReader_ReadContent()
         {
             var inputLines = new[] { "Vaughn Lewis", "Marin Alvarez", "Beau Tristan Bentley" };
-            var readLines = new List<string>();
-
+            
             var mockFileProvider = new Mock<IFileProvider>();
-            mockFileProvider.Setup(f => f.ReadAllLines("input.txt")).Returns(inputLines)
-                .Callback<string, IEnumerable<string>>((_, lines) => readLines.AddRange(lines));
+            mockFileProvider.Setup(f => f.ReadAllLines("input.txt")).Returns(inputLines);
+
+            var readLines = mockFileProvider.Object.ReadAllLines("input.txt");
 
             Assert.That(readLines.First(), Is.EqualTo("Vaughn Lewis"));
         }
