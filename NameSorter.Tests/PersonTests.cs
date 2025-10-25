@@ -14,5 +14,11 @@ namespace NameSorter.Tests
             Assert.That(p.GivenNames, Is.EqualTo(new[] { "Adonis", "Julius" }));
             Assert.That(p.ToString(), Is.EqualTo("Adonis Julius Archer"));
         }
+        [Test]
+        public void Person_TrimsExtraWhitespace()
+        {
+            var p = new Person("  Marin   Alvarez  ");
+            Assert.That(p.ToString(), Is.EqualTo("Marin Alvarez"));
+        }
     }
 }
