@@ -8,8 +8,8 @@ namespace NameSorter.Utilities
 {
     public interface IFileProvider
     {
-        IEnumerable<string> ReadAllLines(string path);
-        void WriteAllLines(string path, IEnumerable<string> lines);
+       IEnumerable<string> ReadAllLines(string path);
+       void WriteAllLines(string path, IEnumerable<string> lines);
     }
 
 }

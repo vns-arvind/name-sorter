@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NameSorter.Utilities
 {
-    public class FileReader : IFileProvider
+    public class FileProvider : IFileProvider
     {
         public IEnumerable<string> ReadAllLines(string path)
         {
@@ -18,8 +18,9 @@ namespace NameSorter.Utilities
 
         public void WriteAllLines(string path, IEnumerable<string> lines)
         {
-            if (!File.Exists(path))
-                throw new FileNotFoundException($"File not found: {path}");
+            var directory = Path.GetDirectoryName(path);
+            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
 
             File.WriteAllLines(path, lines);
         }
