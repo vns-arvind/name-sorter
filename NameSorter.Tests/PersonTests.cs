@@ -1,3 +1,4 @@
+using NameSorter.Models;
 using System;
 
 namespace NameSorter.Tests
@@ -9,9 +10,9 @@ namespace NameSorter.Tests
         public void Person_Construct_FromFullName_SetsLastNameAndGivenNames()
         {
             var p = new Person("Adonis Julius Archer");
-            Assert.Equals("Archer", p.LastName);
-            Assert.Equals(new[] { "Adonis", "Julius" }, p.GivenNames);
-            Assert.Equals("Adonis Julius Archer", p.ToString());
+            Assert.That(p.LastName, Is.EqualTo("Archer"));
+            Assert.That(p.GivenNames, Is.EqualTo(new[] { "Adonis", "Julius" }));
+            Assert.That(p.ToString(), Is.EqualTo("Adonis Julius Archer"));
         }
     }
 }
